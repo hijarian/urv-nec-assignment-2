@@ -21,5 +21,14 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="numbers.txt" />
+    <Text Include="ft06.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SolutionTemplate.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
