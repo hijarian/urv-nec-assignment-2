@@ -4,6 +4,7 @@
 #include <utility>
 #include <sstream>
 #include <tuple>
+#include <limits>
 
 #include <random>
 
@@ -206,13 +207,13 @@ Chromosome mutate(const Chromosome& input)
 class SolutionTemplate
 {
 private:
-    std::vector < Task > tasks;
+	std::vector < Task > tasks;
 
-    /* for performance, we keep a vector of indices only, no need to copy the values all the time */
+	/* for performance, we keep a vector of indices only, no need to copy the values all the time */
 	std::vector < std::vector < int /* index in tasks */ > > machines;
 
-    /* same as machines, indices only */
-    std::vector < std::vector < int /* index in tasks */ > > jobs;
+	/* same as machines, indices only */
+	std::vector < std::vector < int /* index in tasks */ > > jobs;
 
 public:
 	/**
@@ -231,19 +232,19 @@ public:
 			std::get<4>(tasks[i]) = start_times[i];
 		}
 	}
-	
-	/** 
+
+	/**
 	* From the given input, construct one of the jobs of the solution template.
 	* This is used before the genetic algorithm, to setup the proper solution template.
 	*/
-    void add_job(const int& job_id, const std::vector< std::pair<int /* machine ID */, int /* length */> >& steps)
-    {
-        jobs.resize(job_id + 1);
+	void add_job(const int& job_id, const std::vector< std::pair<int /* machine ID */, int /* length */> >& steps)
+	{
+		jobs.resize(job_id + 1);
 		// immediately set to the first element of the new job
 		auto task_index = tasks.size();
 
 		int sequence_number = 0;
-        for (const auto &step: steps)
+		for (const auto& step : steps)
 		{
 			int machine_id = step.first;
 			int length = step.second;
@@ -264,7 +265,7 @@ public:
 			++sequence_number;
 			++task_index;
 		}
-    }
+	}
 
 	/* debug method for seeing the current state of the template (with start times filled or not) */
 	void print() const
@@ -316,6 +317,83 @@ public:
 	// But the detection happens in two ways: either on the jobs level or on the machines level.
 	// to perform the full resolution, it must be a repeated process. We go through the machines,
 	// then we go through the jobs, then we go through the machines again, and so on, until there are no conflicts left.
+	void resolve_conflicts()
+	{
+		/* The algorithm:
+		do
+			had_collision := false
+			for every job
+				for every step
+					if no step with the next sequence ID
+						stop
+					next_start := start time of the step with the next sequence ID
+					if own_start + length > next_start
+						had_collision := true
+						diff := (own_start + length - next_start)
+						pick the track of the next step
+							move all the steps on this track `diff` forward
+		while had_collision
+		*/
+	}
+
+	/* 
+	 * make a chromosome
+	 * 
+	 * DESTROYS CURRENT STATE OF THE TEMPLATE
+	 * 
+	 * we cannot just make a random array of ints
+	 * every int is a starting time of the task
+	 * we need to apply the same conflict resolution algorithm to the chromosome
+	 * also we need to allow chromosomes where starting time of non-conflicting tasks may overlap, because it's allowed and it's a whole point of parallelism through machines.
+	*/
+	Chromosome make_chromosome()
+	{
+		// 1. fill the start times of tasks with random numbers
+		for (auto& task : tasks)
+		{
+			std::get<4>(task) = make_random_mutation_value();
+		}
+
+		// 2. resolve conflicts
+
+		// 3. make the Chromosome from the start times
+		Chromosome result;
+		// fill with the start times 
+		for (const auto& task : tasks)
+		{
+			result.push_back(std::get<4>(task));
+		}
+
+		return result;
+	}
+
+	int horizon() const
+	{
+		int result = 0;
+		for (const auto& task : tasks)
+		{
+			result += std::get<3>(task);
+		}
+		return result;
+	}
+
+	int absolute_lowest_bound() const
+	{
+		int max_time{ 0 };
+		for (const auto& machine : machines)
+		{
+			int current_time{ 0 };
+			for (const auto& task_index : machine)
+			{
+				current_time += std::get<3>(tasks[task_index]);
+			}
+			if (current_time > max_time)
+			{
+				max_time = current_time;
+			}
+		}
+		return max_time;
+	}
 };
 
 int main()
@@ -328,18 +406,21 @@ int main()
     }
 
 	SolutionTemplate solution_template;
+	int horizon{ 0 };
 
     std::vector<std::pair<int, int>> input_data_line;
     std::string input_text_line;
-	int first, second;
+	int machine_id;
+	int task_length;
 	int job_id{ 0 };
 	while (std::getline(file, input_text_line))
     {
 		input_data_line.resize(0);
         std::istringstream iss(input_text_line);
-        while (iss >> first >> second)
+        while (iss >> machine_id >> task_length)
         {
-            input_data_line.push_back(std::make_pair(first, second));
+            input_data_line.push_back(std::make_pair(machine_id, task_length));
+			horizon += task_length;
         }
 
 		// Output the pairs to verify
@@ -361,6 +442,9 @@ int main()
 
 	std::cout << "Solution template:\n";
 	solution_template.print();
+
+	std::cout << "Horizon by us: " << horizon << " Horizon by template: " << solution_template.horizon() <<  "\n";
+	std::cout << "Absolute lowest_bound: " << solution_template.absolute_lowest_bound() << "\n";
 
     return 0;
 }
