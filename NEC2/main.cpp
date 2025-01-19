@@ -190,6 +190,7 @@ int main()
 
 	SolutionTemplate solution_template;
 	int horizon{ 0 };
+	int chromosome_length{ 0 };
 
     std::vector<std::pair<int, int>> input_data_line;
     std::string input_text_line;
@@ -204,6 +205,7 @@ int main()
         {
             input_data_line.push_back(std::make_pair(machine_id, task_length));
 			horizon += task_length;
+			++chromosome_length;
         }
 
 		// Output the pairs to verify
@@ -228,6 +230,38 @@ int main()
 
 	std::cout << "Horizon by us: " << horizon << " Horizon by template: " << solution_template.horizon() <<  "\n";
 	std::cout << "Absolute lowest_bound: " << solution_template.absolute_lowest_bound() << "\n";
+
+	// generate all the random distributions
+	// TODO
+
+	std::vector<std::pair<Chromosome, Fitness>> population;
+
+	// set the number of chromosomes in the population
+	constexpr auto population_size = 10000;
+
+	// generate the initial population using the solution template
+	// TODO
+	
+	// set the number of generations
+	constexpr auto generations = 1000;
+
+	for (int generation{ 0 }; generation < generations; ++generation)
+	{
+		for (auto& specimen : population)
+		{
+			// calculate the fitness of each chromosome
+			solution_template.fill_start_times(specimen.first);
+			specimen.second = solution_template.calculate_fitness();
+			// TODO
+		}
+		// select the best chromosomes
+		// 
+		// debug print the best chromosomes with fitness
+		// 
+		// crossover the best chromosomes
+		// mutate the chromosomes
+	}
+
 
     return 0;
 }
