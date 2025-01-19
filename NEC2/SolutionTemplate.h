@@ -43,6 +43,9 @@ private:
 	 */
 	std::vector < std::vector < int /* index in tasks */ > > jobs;
 
+	int __cached_horizon{ -1 };
+	int __cached_absolute_lowest_bound{ -1 };
+
 public:
 	/**
 	* This method is used to fill the template with the start times from the chromosome.
@@ -93,6 +96,8 @@ public:
 			++sequence_number;
 			++task_index;
 		}
+		__cached_absolute_lowest_bound = -1;
+		__cached_horizon = -1;
 	}
 
 	/* debug method for seeing the current state of the template (with start times filled or not) */
@@ -140,15 +145,19 @@ public:
 	 * We need to first check the serious-level conflicts, which are the conflicts on the level of jobs.
 	 * Because these conflicts include sequence breaks (a task with higher sequence number starts before the task with lower sequence number ends).
 	 * Resolution of the job-level conflicts is moving all the tasks starting from the conflicting one in the same JOB forward in time.
-	// we need to go to the machine where the tasks A and B are, and move the task B AND ALL THE FOLLOWING TASKS forward in time by 2 units.
-	// this will resolve the absolute-level conflict on the level of machines.
-	// but we still need to resolve the sequence-level conflicts.
-	// for that we go over the JOBS now, and check whether we have the overlaps there.
-	// in case of overlaps, we still go to the machine and move the conflicting tasks forward in time in the span of the machine.
-	// this will resolve the sequence-level conflicts.
-	// But the detection happens in two ways: either on the jobs level or on the machines level.
-	// to perform the full resolution, it must be a repeated process. We go through the machines,
-	// then we go through the jobs, then we go through the machines again, and so on, until there are no conflicts left.
+	 * 
+	 * This procedure can introduce wrong ordering on the machine level - order of indices in the machine vector
+	 * will not represent the actual start times of the tasks on the machine anymore.
+	 * So we sort the indices in all the machine vectors by the start times of the tasks.
+	 * 
+	 * After that we go over every machine and resolve the conflicts on the machine level 
+	 * by doing the same: moving the conflicting tasks and all tasks in them forward in time,
+	 * but this time we move by MACHINE not by job.
+	 * 
+	 * Then, we repeat the process until there are no conflicts left.
+	 * This is the most brittle part of the process as I can't guarantee that the algorithm will always converge.
+	 * It looks reasonable because we are always "spreading the tasks out" in time, but it's not guaranteed
+	 * as we try to satisfy two constraints at the same time and I am unable to prove it mathematically right now.
 	 */
 	void resolve_conflicts()
 	{
@@ -265,6 +274,7 @@ public:
 		}
 
 		// 2. resolve conflicts
+		resolve_conflicts();
 
 		// 3. make the Chromosome from the start times
 		Chromosome result;
@@ -277,7 +287,16 @@ public:
 		return result;
 	}
 
-	int horizon() const
+	int horizon()
+	{
+		if (__cached_horizon == -1)
+		{
+			__cached_horizon = calculate_horizon();
+		}
+		return __cached_horizon;
+	}
+
+	int calculate_horizon() const
 	{
 		int result = 0;
 		for (const auto& task : tasks)
@@ -287,7 +306,16 @@ public:
 		return result;
 	}
 
-	int absolute_lowest_bound() const
+	int absolute_lowest_bound()
+	{
+		if (__cached_absolute_lowest_bound == -1)
+		{
+			__cached_absolute_lowest_bound = calculate_absolute_lowest_bound();
+		}
+		return __cached_absolute_lowest_bound;
+	}
+
+	int calculate_absolute_lowest_bound() const
 	{
 		int max_time{ 0 };
 		for (const auto& machine : machines)
