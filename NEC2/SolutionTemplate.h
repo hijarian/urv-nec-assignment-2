@@ -133,8 +133,6 @@ public:
 		}
 	}
 
-	// TODO: fitness function
-
 	/*
 	 * Function to resolve the conflicts automatically.
 	 * The idea of the resolution process is to move the conflicting (overlapping) tasks forward in time.
@@ -329,6 +327,46 @@ public:
 			{
 				max_time = current_time;
 			}
+		}
+		return max_time;
+	}
+
+	/*
+	 * You MUST call this function after the conflicts are resolved!!!
+	 */
+	double fitness() const
+	{
+		/*
+		* fitness calculation is as follows: 
+		* calculate the total runtime
+		* Determine as a `double` ratio value where in the range (absolute lowest bound, horizon) the total runtime is.
+		*/
+		int total_runtime_value = total_runtime();
+		int horizon_value = __cached_horizon;
+		int absolute_lowest_bound_value = __cached_absolute_lowest_bound;
+
+		if (total_runtime_value < absolute_lowest_bound_value)
+		{
+			return 1.0;
+		}
+
+		if (total_runtime_value > horizon_value)
+		{
+			return 0.0;
+		}
+
+		return 1.0 - (total_runtime_value - absolute_lowest_bound_value) / (horizon_value - absolute_lowest_bound_value);
+	}
+
+	int total_runtime() const
+	{
+		int max_time{ 0 };
+		for (const auto& machine : machines)
+		{
+			int last_task_index = machine[machine.size() - 1];
+			int end_time = std::get<4>(tasks[last_task_index]) + std::get<3>(tasks[last_task_index]);
+
+			max_time = std::max(max_time, end_time);
 		}
 		return max_time;
 	}
