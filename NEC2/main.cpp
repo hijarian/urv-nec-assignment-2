@@ -400,7 +400,7 @@ int main()
 	int job_id{ 0 };
 	while (std::getline(file, input_text_line))
     {
-		input_data_line.resize(0);
+		input_data_line.clear();
         std::istringstream iss(input_text_line);
         while (iss >> machine_id >> task_length)
         {
