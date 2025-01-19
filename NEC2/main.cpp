@@ -107,7 +107,7 @@ std::mt19937 random_engine(rd());
 constexpr auto problem_filename = "la40seti5.txt";
 constexpr auto crossover_type = "1-point"; // "1-point" or "2-point"
 constexpr auto is_selection_tainted = true; // whether we put the worst specimen back into the population
-constexpr auto mutation_type = "singular"; // "singular" or "uniform XOR"
+constexpr auto mutation_type = "uniform XOR"; // "singular" or "uniform XOR"
 
 
 // set the number of chromosomes in the population
@@ -229,7 +229,7 @@ std::pair<Chromosome, Chromosome> crossover_1point(const Chromosome& left, const
 * Returns the NEW chromosome with one of the start times mutated.
 * There's randomness both in the position of the mutation and the value of the mutation.
 */
-Chromosome mutate(const Chromosome& input)
+Chromosome mutate_singular(const Chromosome& input)
 {
 	// sneaky sneaky static + globals
 	static std::uniform_int_distribution<> positions_distribution(0, input.size() - 1);
@@ -254,6 +254,26 @@ Chromosome mutate(const Chromosome& input)
 	return solution_template.get_chromosome();
 }
 
+/**
+* Returns the NEW chromosome with one of the start times mutated.
+* This variant of mutation does XOR 1 to every element of the chromosome.
+* This introduces a lot of randomness and is not guaranteed to be feasible.
+*/
+Chromosome mutate_xor(const Chromosome& input)
+{
+
+	Chromosome result{ input };
+	for (auto& value : result)
+	{
+		value ^= 1;
+	}
+
+	solution_template.fill_start_times(result);
+	solution_template.resolve_conflicts();
+
+	return solution_template.get_chromosome();
+}
+
 /*
  * make a chromosome
  *
@@ -270,8 +290,10 @@ Chromosome make_chromosome()
 	// get the chromosome of the correct length
 	Chromosome raw = solution_template.get_chromosome();
 
-	// 1. fill the chromosome with random numbers between 0 and half of horizon
-	static std::uniform_int_distribution<> start_time_distribution(0, solution_template.horizon() / 2);
+	// 1. fill the chromosome with random numbers between 0 and an absolute lowest bound
+	// Initial design was using half of horizon but with a lot of tasks (around 150) the difference between the lowest bound and the horizon is very large (x10 large)
+	// and the conflict resolution always "spreads" the tasks in time, so it's better to start with the lesser value
+	static std::uniform_int_distribution<> start_time_distribution(0, solution_template.absolute_lowest_bound());
 	for (auto& start_time : raw)
 	{
 		// start_time is a reference, so we can modify it directly
@@ -374,7 +396,19 @@ Specimen solve_using_genetic_algorithm()
 			bool should_mutate = random_percent_distribution(random_engine) < mutation_probability;
 			if (should_mutate)
 			{
-				std::get<0>(specimen) = mutate(std::get<0>(specimen));
+				if (mutation_type == "singular")
+				{
+					std::get<0>(specimen) = mutate_singular(std::get<0>(specimen));
+				}
+				else if (mutation_type == "uniform XOR")
+				{
+					std::get<0>(specimen) = mutate_xor(std::get<0>(specimen));
+				}
+				else
+				{
+					throw std::runtime_error("Unknown mutation type.");
+				}
+
 				if (std::get<2>(specimen) == generation)
 				{
 					// if we mutated the chromosome in the current generation,
