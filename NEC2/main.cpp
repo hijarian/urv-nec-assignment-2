@@ -254,12 +254,14 @@ int main()
 			specimen.second = solution_template.calculate_fitness();
 			// TODO
 		}
-		// select the best chromosomes
+		// sort the population by fitness descending
+		// select the top half of chromosomes by fitness plus 1 worst chromosome
 		// 
-		// debug print the best chromosomes with fitness
+		// debug print the best chromosome with fitness
+		// debug print the worst chosen chromosome with fitness
 		// 
-		// crossover the best chromosomes
-		// mutate the chromosomes
+		// crossover the chosen chromosomes (restoring the population size)
+		// mutate the whole population
 	}
 
 
