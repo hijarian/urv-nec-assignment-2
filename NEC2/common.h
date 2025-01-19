@@ -2,6 +2,7 @@
 #include <tuple>
 #include <limits>
 #include <vector>
+#include <algorithm>
 
 typedef std::tuple<
 	const int /* 0 job ID */,
