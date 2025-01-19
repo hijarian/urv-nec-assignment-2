@@ -29,10 +29,18 @@ class SolutionTemplate
 private:
 	std::vector < Task > tasks;
 
-	/* for performance, we keep a vector of indices only, no need to copy the values all the time */
+	/*
+	 * for performance, we keep a vector of indices only, no need to copy the values all the time
+	 * For performance reasons as well, sequence of tasks in the machines (in time) may be not the sequence of IDs in these vectors.
+	 * so if you need to show the actual order of tasks on the timeline, you first need to sort this vector by the start time of the tasks.
+	 */
 	std::vector < std::vector < int /* index in tasks */ > > machines;
 
-	/* same as machines, indices only */
+	/*
+	 * same as machines, indices only
+	 * Order of tasks in each job is important and it's being kept all the time.
+	 * That is, the sequence of tasks in each job is exactly the sequence of IDs in these vectors.
+	 */
 	std::vector < std::vector < int /* index in tasks */ > > jobs;
 
 public:
@@ -122,21 +130,26 @@ public:
 
 	// TODO: fitness function
 
-	// TODO: function to resolve the conflicts automatically.
-	// the idea of the resolution process is to move the conflicting (overlapping) tasks forward in time.
-	// for example, we have task A with start time 1 and length 5, and task B with start time 3 and length 3.
-	// so we have an overlap of 2 units of time.
+	/*
+	 * Function to resolve the conflicts automatically.
+	 * The idea of the resolution process is to move the conflicting (overlapping) tasks forward in time.
+	 *
+	 * For example, we have task A with start time 1 and length 5, and task B with start time 3 and length 3.
+	 * so we have an overlap of 2 units of time.
+	 * 
+	 * We need to first check the serious-level conflicts, which are the conflicts on the level of jobs.
+	 * Because these conflicts include sequence breaks (a task with higher sequence number starts before the task with lower sequence number ends).
+	 * Resolution of the job-level conflicts is moving all the tasks starting from the conflicting one in the same JOB forward in time.
 	// we need to go to the machine where the tasks A and B are, and move the task B AND ALL THE FOLLOWING TASKS forward in time by 2 units.
 	// this will resolve the absolute-level conflict on the level of machines.
 	// but we still need to resolve the sequence-level conflicts.
 	// for that we go over the JOBS now, and check whether we have the overlaps there.
 	// in case of overlaps, we still go to the machine and move the conflicting tasks forward in time in the span of the machine.
 	// this will resolve the sequence-level conflicts.
-	// So, the resolution happens always on the level of the machine, by moving the target task and all the following tasks forward in time.
-	// this may be a separate function.
 	// But the detection happens in two ways: either on the jobs level or on the machines level.
 	// to perform the full resolution, it must be a repeated process. We go through the machines,
 	// then we go through the jobs, then we go through the machines again, and so on, until there are no conflicts left.
+	 */
 	void resolve_conflicts()
 	{
 		bool had_collision;
@@ -179,6 +192,8 @@ public:
 					{
 						had_collision = true;
 						// move the right task and all after it forward in time by `diff`
+						// note that it can break the sequence of IDs of tasks in the `machines` vector
+						// that is, the sequence of IDs in the vectors inside `machines` will not actually represent the timelines of tasks on these machines
 						for (int j = i + 1; j < steps.size(); ++j)
 						{
 							auto& task = tasks[steps[j]];
@@ -190,8 +205,13 @@ public:
 
 			// now we need to resolve the machine-level collisions
 			// especially because the job-level collisions resolution could have created new ones.
-			for (const auto& machine : machines)
+			for (auto& machine : machines)
 			{
+				// sort the ids in the machine by the start time, more accurately representing the timeline after the job-level resolution
+				std::sort(machine.begin(), machine.end(), [&tasks = tasks](int a, int b) {
+					return std::get<4>(tasks[a]) < std::get<4>(tasks[b]);
+					});
+
 				for (int i = 0; i < machine.size() - 1; ++i)
 				{
 					const auto& left_task_index = machine[i];
@@ -201,6 +221,7 @@ public:
 					int start1 = std::get<4>(task1);
 					int length1 = std::get<3>(task1);
 					int start2 = std::get<4>(task2);
+
 					// positive diff means collision (overlap)
 					// zero diff means zero time between the tasks
 					int diff = start1 + length1 - start2;
