@@ -1,27 +1,6 @@
-#include <iostream>
-#include <fstream>
-#include <utility>
-#include <sstream>
-
-#include <random>
-
-#include "common.h"
-#include "SolutionTemplate.h"
-
-std::random_device rd;
-std::mt19937 mersenne_twister(rd());
-
-constexpr auto MIN_MUTATION_VALUE = -2;
-constexpr auto MAX_MUTATION_VALUE = 2;
-
-/* Pre-created distribution which we can simply call (passing the generator as a value) */
-std::uniform_int_distribution<> random_mutation_values(MIN_MUTATION_VALUE, MAX_MUTATION_VALUE);
-
-static SolutionTemplate solution_template;
-
 /*
 * The Job Shop problem solved by the Genetic Algorithm
-* 
+*
 The horizon: total runtime if all the tasks will be put sequentially
 We can also estimate the absolute lowest bound of the runtime:
 if we ignore the restrictions
@@ -37,7 +16,7 @@ job is placed into the machine, the machine is fixed
 and onto a time slot, the time slot can be modified
 
 
-One of the first problems that must be dealt with in the JSP is that many proposed solutions have infinite cost: 
+One of the first problems that must be dealt with in the JSP is that many proposed solutions have infinite cost:
 In fact, it is quite simple to concoct examples of such
 by ensuring that two machines will deadlock, so that each waits for the output of the other's next step.
 
@@ -108,6 +87,46 @@ no cross-track violations will be possible, or I can eliminate them immediately 
 Mutations will _shorten_ the time gaps not _lengthen_ them.
 */
 
+#include <iostream>
+#include <fstream>
+#include <utility>
+#include <sstream>
+
+#include <random>
+
+#include "common.h"
+#include "SolutionTemplate.h"
+
+std::random_device rd;
+
+/* ------------ SETTINGS BEGIN ------- */
+
+std::mt19937 random_engine(rd());
+
+constexpr auto MIN_MUTATION_VALUE = -2;
+constexpr auto MAX_MUTATION_VALUE = 2;
+
+constexpr auto problem_filename = "ft06.txt";
+
+// set the number of chromosomes in the population
+constexpr auto population_size = 10000;
+constexpr auto index_of_middle_specimen = population_size / 2 - 1;
+constexpr auto index_of_last_specimen = population_size - 1;
+
+// set the number of generations
+constexpr auto generations = 1000;
+
+// set the probability of mutation
+constexpr auto mutation_probability = 10;
+
+/* ------------ SETTINGS END ------- */
+
+// for percents let's use actual percent values instead of doubles, it's easier to work with integers
+static std::uniform_real_distribution<int> random_percent_distribution(0, 100);
+
+
+// the solution template is a global variable as we never create more than one instance of it
+static SolutionTemplate solution_template;
 
 /*
 * 2-point crossover between two vectors.
@@ -127,8 +146,8 @@ std::pair<Chromosome, Chromosome> crossover(const Chromosome& left, const Chromo
 
 	// sneaky sneaky static + globals
     static std::uniform_int_distribution<> dist(1, left.size() - 2);
-	int point1 = dist(mersenne_twister);
-    int point2 = dist(mersenne_twister);
+	int point1 = dist(random_engine);
+    int point2 = dist(random_engine);
 
     if (point1 > point2)
     {
@@ -163,10 +182,10 @@ Chromosome mutate(const Chromosome& input)
 {
 	// sneaky sneaky static + globals
 	static std::uniform_int_distribution<> positions_distribution(0, input.size());
-	auto position = positions_distribution(mersenne_twister);
+	auto position = positions_distribution(random_engine);
 
 	static std::uniform_int_distribution<int> mutation_value_distribution(MIN_MUTATION_VALUE, MAX_MUTATION_VALUE);
-	auto mutation_value = mutation_value_distribution(mersenne_twister);
+	auto mutation_value = mutation_value_distribution(random_engine);
 
 	Chromosome result{ input };
 	result[position] += mutation_value;
@@ -191,11 +210,11 @@ Chromosome make_chromosome()
 	Chromosome raw = solution_template.get_chromosome();
 
 	// 1. fill the chromosome with random numbers between 0 and half of horizon
-	static std::uniform_int_distribution<> distribution(0, solution_template.horizon() / 2);
+	static std::uniform_int_distribution<> start_time_distribution(0, solution_template.horizon() / 2);
 	for (auto& start_time : raw)
 	{
 		// start_time is a reference, so we can modify it directly
-		start_time = distribution(mersenne_twister);
+		start_time = start_time_distribution(random_engine);
 	}
 
 	// 2. put the randomized chromosome back into the solution template and resolve conflicts
@@ -208,7 +227,7 @@ Chromosome make_chromosome()
 
 int main()
 {
-    std::ifstream file("ft06.txt");
+    std::ifstream file(problem_filename);
     if (!file.is_open())
     {
         std::cerr << "Failed to open the file." << std::endl;
@@ -259,19 +278,11 @@ int main()
 
 	Population population;
 
-	// set the number of chromosomes in the population
-	constexpr auto population_size = 10000;
-	constexpr auto index_of_middle_specimen = population_size / 2 - 1;
-	constexpr auto index_of_last_specimen = population_size - 1;
-
 	// generate the initial population
 	for (int i = 0; i < population_size; ++i)
 	{
 		population.push_back({ make_chromosome(), 0, 0 });
 	}
-
-	// set the number of generations
-	constexpr auto generations = 1000;
 
 	for (int generation{ 0 }; generation < generations; ++generation)
 	{
@@ -323,8 +334,11 @@ int main()
 		// mutate the whole population
 		for (auto& specimen : population)
 		{
-			// TODO mutate only with a certain probability
-			std::get<0>(specimen) = mutate(std::get<0>(specimen));
+			bool should_mutate = random_percent_distribution(random_engine) < mutation_probability;
+			if (should_mutate)
+			{
+				std::get<0>(specimen) = mutate(std::get<0>(specimen));
+			}
 		}
     }
 
