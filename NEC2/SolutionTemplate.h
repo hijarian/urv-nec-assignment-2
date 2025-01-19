@@ -333,6 +333,9 @@ public:
 
 	/*
 	 * You MUST call this function after the conflicts are resolved!!!
+	 * Also you MUST call this function only after you called `horizon()` and `absolute_lowest_bound()` at least once,
+	 * so the cached values are set. To remove this restriction, we would need to refactor this class very significantly
+	 * which does not worth it for the research problem.
 	 */
 	double fitness() const
 	{
