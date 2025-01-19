@@ -17,6 +17,7 @@ constexpr auto MAX_MUTATION_VALUE = 2;
 /* Pre-created distribution which we can simply call (passing the generator as a value) */
 std::uniform_int_distribution<> random_mutation_values(MIN_MUTATION_VALUE, MAX_MUTATION_VALUE);
 
+static SolutionTemplate solution_template;
 
 /*
 * The Job Shop problem solved by the Genetic Algorithm
@@ -124,8 +125,9 @@ std::pair<Chromosome, Chromosome> crossover(const Chromosome& left, const Chromo
 		throw std::runtime_error("Chromosomes must have at least 3 elements.");
 	}
 
-    std::uniform_int_distribution<> dist(1, left.size() - 2);
-    int point1 = dist(mersenne_twister);
+	// sneaky sneaky static + globals
+    static std::uniform_int_distribution<> dist(1, left.size() - 2);
+	int point1 = dist(mersenne_twister);
     int point2 = dist(mersenne_twister);
 
     if (point1 > point2)
@@ -153,30 +155,55 @@ std::pair<Chromosome, Chromosome> crossover(const Chromosome& left, const Chromo
     return std::make_pair(offspring1, offspring2);
 }
 
-/*
- * More natural way to get the random values.
- * Normally we have a function which we tell the bounds and it returns the value.
- * 
- * But with the device and the generator, we can create the distribution once and then call it with the generator as a value.
- * It's a bit unnatural to fiddle with such a low-level primitives as a generator, so it's wrapped in this helper.
- */
-int make_random_mutation_value()
-{
-	return random_mutation_values(mersenne_twister);
-}
-
 /**
 * Returns the NEW chromosome with one of the start times mutated.
 * There's randomness both in the position of the mutation and the value of the mutation.
 */
 Chromosome mutate(const Chromosome& input)
 {
-	std::uniform_int_distribution<> dist(0, input.size());
-	auto position = dist(mersenne_twister);
+	// sneaky sneaky static + globals
+	static std::uniform_int_distribution<> positions_distribution(0, input.size());
+	auto position = positions_distribution(mersenne_twister);
+
+	static std::uniform_int_distribution<int> mutation_value_distribution(MIN_MUTATION_VALUE, MAX_MUTATION_VALUE);
+	auto mutation_value = mutation_value_distribution(mersenne_twister);
 
 	Chromosome result{ input };
-	result[position] += make_random_mutation_value();
+	result[position] += mutation_value;
+
 	return result;
+}
+
+/*
+ * make a chromosome
+ *
+ * MUST be called after the solution_template is set up!!!
+ * 
+ * we cannot just make a random array of ints
+ * every int is a starting time of the task
+ * we need to apply the same conflict resolution algorithm to the chromosome
+ * also we need to allow chromosomes where starting time of non-conflicting tasks may overlap,
+ * because it's allowed and it's a whole point of parallelism through machines.
+*/
+Chromosome make_chromosome()
+{
+	// get the chromosome of the correct length
+	Chromosome raw = solution_template.get_chromosome();
+
+	// 1. fill the chromosome with random numbers between 0 and half of horizon
+	static std::uniform_int_distribution<> distribution(0, solution_template.horizon() / 2);
+	for (auto& start_time : raw)
+	{
+		// start_time is a reference, so we can modify it directly
+		start_time = distribution(mersenne_twister);
+	}
+
+	// 2. put the randomized chromosome back into the solution template and resolve conflicts
+	solution_template.fill_start_times(raw);
+	solution_template.resolve_conflicts();
+
+	// 3. get the clean chromosome back
+	return solution_template.get_chromosome();
 }
 
 int main()
@@ -188,7 +215,6 @@ int main()
         return 1;
     }
 
-	SolutionTemplate solution_template;
 	int horizon{ 0 };
 	int chromosome_length{ 0 };
 
@@ -231,9 +257,6 @@ int main()
 	std::cout << "Horizon by us: " << horizon << " Horizon by template: " << solution_template.horizon() <<  "\n";
 	std::cout << "Absolute lowest_bound: " << solution_template.absolute_lowest_bound() << "\n";
 
-	// generate all the random distributions
-	// TODO
-
 	Population population;
 
 	// set the number of chromosomes in the population
@@ -241,9 +264,12 @@ int main()
 	constexpr auto index_of_middle_specimen = population_size / 2 - 1;
 	constexpr auto index_of_last_specimen = population_size - 1;
 
-	// generate the initial population using the solution template
-	// TODO
-	
+	// generate the initial population
+	for (int i = 0; i < population_size; ++i)
+	{
+		population.push_back({ make_chromosome(), 0, 0 });
+	}
+
 	// set the number of generations
 	constexpr auto generations = 1000;
 
@@ -255,19 +281,20 @@ int main()
 			if (std::get<2>(specimen) == generation)
 			{
 				solution_template.fill_start_times(std::get<0>(specimen));
-				std::get<1>(specimen) = solution_template.calculate_fitness();
+				std::get<1>(specimen) = solution_template.fitness();
 			}
 		}
 		// sort the population by fitness descending
         std::sort(population.begin(), population.end(), [](const Specimen& a, const Specimen& b) {
 			return std::get<1>(a) > std::get<1>(b);
         });
-		// debug print the best chromosome with fitness
-		// debug print the worst chromosome with fitness
+
+		std::cout << "generation " << generation << "\tbest fitness: " << std::get<1>(population[0]) << "\tworst fitness: " << std::get<1>(population[population_size - 1]) << "\n";
 
 		if (generation == generations - 1)
 		{
 			// on the last generation we don't need to breed, just stop
+			std::cout << "Last generation reached.\n";
 			break;
 		}
 

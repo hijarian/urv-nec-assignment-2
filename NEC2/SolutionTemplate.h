@@ -247,41 +247,13 @@ public:
 		} while (had_collision);
 	}
 
-	// TODO this function accepts the random generator and setups the internal functions for the random distributions
-	void setup_random_distributions(/* TODO */)
+	Chromosome get_chromosome() const
 	{
-		// TODO fill this later
-	}
-
-	/*
-	 * make a chromosome
-	 *
-	 * DESTROYS CURRENT STATE OF THE TEMPLATE
-	 *
-	 * we cannot just make a random array of ints
-	 * every int is a starting time of the task
-	 * we need to apply the same conflict resolution algorithm to the chromosome
-	 * also we need to allow chromosomes where starting time of non-conflicting tasks may overlap, because it's allowed and it's a whole point of parallelism through machines.
-	*/
-	Chromosome make_chromosome()
-	{
-		// 1. fill the start times of tasks with random numbers
-		for (auto& task : tasks)
-		{
-			std::get<4>(task) = 0; // TODO fix this later
-		}
-
-		// 2. resolve conflicts
-		resolve_conflicts();
-
-		// 3. make the Chromosome from the start times
 		Chromosome result;
-		// fill with the start times 
 		for (const auto& task : tasks)
 		{
 			result.push_back(std::get<4>(task));
 		}
-
 		return result;
 	}
 
