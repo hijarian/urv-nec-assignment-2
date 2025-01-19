@@ -3,7 +3,13 @@
 #include <limits>
 #include <vector>
 
-typedef std::tuple<const int /* job ID */, const int /* machine ID */, const int /* sequence number */, const int /* length */, int /* start time NOT const */> Task;
+typedef std::tuple<
+	const int /* 0 job ID */,
+	const int /* 1 machine ID */,
+	const int /* 2 sequence number */,
+	const int /* 3 length */,
+	int       /* 4 start time NOT const */
+> Task;
 
 typedef std::vector<int /* task start time */> Chromosome;
 

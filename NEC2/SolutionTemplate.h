@@ -139,21 +139,84 @@ public:
 	// then we go through the jobs, then we go through the machines again, and so on, until there are no conflicts left.
 	void resolve_conflicts()
 	{
-		/* The algorithm:
+		bool had_collision;
 		do
-			had_collision := false
-			for every job
-				for every step
-					if no step with the next sequence ID
-						stop
-					next_start := start time of the step with the next sequence ID
-					if own_start + length > next_start
-						had_collision := true
-						diff := (own_start + length - next_start)
-						pick the track of the next step
-							move all the steps on this track `diff` forward
-		while had_collision
-		*/
+		{
+			had_collision = false;
+			/* The algorithm:
+	had_collision := false
+	for every job
+		for every step
+			if no step with the next sequence ID
+				stop
+			next_start := start time of the step with the next sequence ID
+			if own_start + length > next_start
+				had_collision := true
+				diff := (own_start + length - next_start)
+				pick the track of the next step
+					move all the steps on this track `diff` forward
+*/
+			// first pass is the check for sequence breaks in jobs
+			// we need to eliminate them first because if we have sequence breaks we will need to do drastical changes to schedule
+			// (swap of the tasks inside the job) which potentially moves the task very far away on the machine timeline
+			// after that we will need to resolve the conflicts on the machine level
+			for (const auto& steps : jobs)
+			{
+				for (int i = 0; i < steps.size() - 1; ++i)
+				{
+					const auto& left_task_index = steps[i];
+					const auto& right_task_index = steps[i + 1];
+					const auto& task1 = tasks[left_task_index];
+					const auto& task2 = tasks[right_task_index];
+					int start1 = std::get<4>(task1);
+					int length1 = std::get<3>(task1);
+					int start2 = std::get<4>(task2);
+
+					// positive diff means collision (overlap)
+					// zero diff means zero time between the tasks
+					int diff = start1 + length1 - start2;
+					if (diff > 0)
+					{
+						had_collision = true;
+						// move the right task and all after it forward in time by `diff`
+						for (int j = i + 1; j < steps.size(); ++j)
+						{
+							auto& task = tasks[steps[j]];
+							std::get<4>(task) += diff;
+						}
+					}
+				} // end for job steps
+			} // end for jobs
+
+			// now we need to resolve the machine-level collisions
+			// especially because the job-level collisions resolution could have created new ones.
+			for (const auto& machine : machines)
+			{
+				for (int i = 0; i < machine.size() - 1; ++i)
+				{
+					const auto& left_task_index = machine[i];
+					const auto& right_task_index = machine[i + 1];
+					const auto& task1 = tasks[left_task_index];
+					const auto& task2 = tasks[right_task_index];
+					int start1 = std::get<4>(task1);
+					int length1 = std::get<3>(task1);
+					int start2 = std::get<4>(task2);
+					// positive diff means collision (overlap)
+					// zero diff means zero time between the tasks
+					int diff = start1 + length1 - start2;
+					if (diff > 0)
+					{
+						had_collision = true;
+						// move the right task and all after it forward in time by `diff`
+						for (int j = i + 1; j < machine.size(); ++j)
+						{
+							auto& task = tasks[machine[j]];
+							std::get<4>(task) += diff;
+						}
+					}
+				} // end for machine steps
+			} // end for machines
+		} while (had_collision);
 	}
 
 	// TODO this function accepts the random generator and setups the internal functions for the random distributions
