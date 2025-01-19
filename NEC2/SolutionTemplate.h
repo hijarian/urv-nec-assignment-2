@@ -345,4 +345,23 @@ public:
 		}
 		return max_time;
 	}
+
+	void visualize() const
+	{
+		int machine_index{ 0 };
+		for (const auto& machine_task_indices : machines)
+		{
+			std::cout << "Machine " << machine_index << ": ";
+			for (const auto task_index : machine_task_indices)
+			{
+				const auto& task = tasks[task_index];
+				std::cout << "(j" << std::get<0>(task) << "s" << std::get<2>(task) << " "
+					<< std::get<4>(task) << "+" << std::get<3>(task) << ") ";
+			}
+			std::cout << "\n";
+			++machine_index;
+		}
+		std::cout << "\n";
+		std::cout << "Total runtime: " << total_runtime() << "\n";
+	}
 };

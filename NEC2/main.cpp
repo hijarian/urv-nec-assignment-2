@@ -365,6 +365,7 @@ int main()
 	solution_template.fill_start_times(std::get<0>(population[0]));
 	std::cout << "Best solution found:\n";
 	solution_template.print();
+	solution_template.visualize();
 
     return 0;
 }
