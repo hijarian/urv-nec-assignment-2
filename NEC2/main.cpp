@@ -104,9 +104,9 @@ std::random_device rd;
 
 std::mt19937 random_engine(rd());
 
-constexpr auto problem_filename = "la40seti5.txt";
+constexpr auto problem_filename = "ft06.txt";
 constexpr auto crossover_type = "1-point"; // "1-point" or "2-point"
-constexpr auto is_selection_tainted = true; // whether we put the worst specimen back into the population
+constexpr auto is_selection_tainted = false; // whether we put the worst specimen back into the population
 constexpr auto mutation_type = "uniform XOR"; // "singular" or "uniform XOR"
 
 
@@ -355,8 +355,11 @@ Specimen solve_using_genetic_algorithm()
 			break;
 		}
 
-		// put the worst chromosome into the half of the population allowed to breed
-		std::swap(population[index_of_middle_specimen], population[index_of_last_specimen]);
+		if (is_selection_tainted)
+		{
+			// put the worst chromosome into the half of the population allowed to breed
+			std::swap(population[index_of_middle_specimen], population[index_of_last_specimen]);
+		}
 
 		// for each pair of specimens in the first half of the population
 		for (size_t i = 0; i < population_size / 2; i += 2)
