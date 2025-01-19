@@ -13,7 +13,7 @@ typedef std::tuple<
 
 typedef std::vector<int /* task start time */> Chromosome;
 
-typedef int Fitness;
+typedef double Fitness;
 
 typedef std::tuple<Chromosome, Fitness, int /* generation */> Specimen;
 

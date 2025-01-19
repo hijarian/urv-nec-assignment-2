@@ -316,9 +316,9 @@ public:
 		* calculate the total runtime
 		* Determine as a `double` ratio value where in the range (absolute lowest bound, horizon) the total runtime is.
 		*/
-		int total_runtime_value = total_runtime();
-		int horizon_value = __cached_horizon;
-		int absolute_lowest_bound_value = __cached_absolute_lowest_bound;
+		double total_runtime_value = total_runtime();
+		double horizon_value = __cached_horizon;
+		double absolute_lowest_bound_value = __cached_absolute_lowest_bound;
 
 		if (total_runtime_value < absolute_lowest_bound_value)
 		{

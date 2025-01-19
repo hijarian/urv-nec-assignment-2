@@ -88,6 +88,7 @@ Mutations will _shorten_ the time gaps not _lengthen_ them.
 */
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <utility>
 #include <sstream>
@@ -106,7 +107,7 @@ std::mt19937 random_engine(rd());
 constexpr auto MIN_MUTATION_VALUE = -2;
 constexpr auto MAX_MUTATION_VALUE = 2;
 
-constexpr auto problem_filename = "ft06.txt";
+constexpr auto problem_filename = "numbers.txt";
 
 // set the number of chromosomes in the population
 constexpr auto population_size = 10000;
@@ -122,7 +123,7 @@ constexpr auto mutation_probability = 10;
 /* ------------ SETTINGS END ------- */
 
 // for percents let's use actual percent values instead of doubles, it's easier to work with integers
-static std::uniform_real_distribution<int> random_percent_distribution(0, 100);
+static std::uniform_int_distribution<> random_percent_distribution(0, 100);
 
 
 // the solution template is a global variable as we never create more than one instance of it
@@ -181,7 +182,7 @@ std::pair<Chromosome, Chromosome> crossover(const Chromosome& left, const Chromo
 Chromosome mutate(const Chromosome& input)
 {
 	// sneaky sneaky static + globals
-	static std::uniform_int_distribution<> positions_distribution(0, input.size());
+	static std::uniform_int_distribution<> positions_distribution(0, input.size() - 1);
 	auto position = positions_distribution(random_engine);
 
 	static std::uniform_int_distribution<int> mutation_value_distribution(MIN_MUTATION_VALUE, MAX_MUTATION_VALUE);
@@ -189,6 +190,13 @@ Chromosome mutate(const Chromosome& input)
 
 	Chromosome result{ input };
 	result[position] += mutation_value;
+
+	// if mutation goes below 0, we need to correct it
+	if (result[position] < 0)
+	{
+		// we replace the mutation value with the absolute value of the mutation
+		result[position] -= mutation_value * 2;
+	}
 
 	return result;
 }
@@ -292,6 +300,7 @@ int main()
 			if (std::get<2>(specimen) == generation)
 			{
 				solution_template.fill_start_times(std::get<0>(specimen));
+				solution_template.resolve_conflicts();
 				std::get<1>(specimen) = solution_template.fitness();
 			}
 		}
@@ -300,7 +309,18 @@ int main()
 			return std::get<1>(a) > std::get<1>(b);
         });
 
-		std::cout << "generation " << generation << "\tbest fitness: " << std::get<1>(population[0]) << "\tworst fitness: " << std::get<1>(population[population_size - 1]) << "\n";
+		std::cout << std::fixed << std::setprecision(2);
+		if (generation % 50 == 0)
+		{
+			std::cout << "generation " << generation
+				<< "\tbest fitnesses: "
+				<< std::get<1>(population[0]) << ", "
+				<< std::get<1>(population[1]) << ", "
+				<< std::get<1>(population[2]) 
+				<< "\tworst fitnesses: "
+				<< std::get<1>(population[population_size - 2]) << ", "
+				<< std::get<1>(population[population_size - 1]) << "\n";
+		}
 
 		if (generation == generations - 1)
 		{
