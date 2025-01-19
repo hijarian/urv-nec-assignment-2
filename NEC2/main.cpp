@@ -234,10 +234,12 @@ int main()
 	// generate all the random distributions
 	// TODO
 
-	std::vector<std::pair<Chromosome, Fitness>> population;
+	Population population;
 
 	// set the number of chromosomes in the population
 	constexpr auto population_size = 10000;
+	constexpr auto index_of_middle_specimen = population_size / 2 - 1;
+	constexpr auto index_of_last_specimen = population_size - 1;
 
 	// generate the initial population using the solution template
 	// TODO
@@ -249,21 +251,59 @@ int main()
 	{
 		for (auto& specimen : population)
 		{
-			// calculate the fitness of each chromosome
-			solution_template.fill_start_times(specimen.first);
-			specimen.second = solution_template.calculate_fitness();
-			// TODO
+			// calculate the fitness of each chromosome of this generation
+			if (std::get<2>(specimen) == generation)
+			{
+				solution_template.fill_start_times(std::get<0>(specimen));
+				std::get<1>(specimen) = solution_template.calculate_fitness();
+			}
 		}
 		// sort the population by fitness descending
-		// select the top half of chromosomes by fitness plus 1 worst chromosome
-		// 
+        std::sort(population.begin(), population.end(), [](const Specimen& a, const Specimen& b) {
+			return std::get<1>(a) > std::get<1>(b);
+        });
 		// debug print the best chromosome with fitness
-		// debug print the worst chosen chromosome with fitness
-		// 
-		// crossover the chosen chromosomes (restoring the population size)
-		// mutate the whole population
-	}
+		// debug print the worst chromosome with fitness
 
+		if (generation == generations - 1)
+		{
+			// on the last generation we don't need to breed, just stop
+			break;
+		}
+
+		// put the worst chromosome into the half of the population allowed to breed
+		std::swap(population[index_of_middle_specimen], population[index_of_last_specimen]);
+
+        // for each pair of specimens in the first half of the population
+        for (size_t i = 0; i < population_size / 2; i += 2)
+        {
+			// obtain their chromosomes
+			const auto& parent1 = std::get<0>(population[i]);
+			const auto& parent2 = std::get<0>(population[i + 1]);
+
+			// crossover the chosen chromosomes obtaining the new pair
+			auto [offspring1, offspring2] = crossover(parent1, parent2);
+
+			// construct two new specimens with the new pair and the generation number
+			Specimen new_specimen1{ offspring1, 0, generation + 1 };
+			Specimen new_specimen2{ offspring2, 0, generation + 1 };
+
+			// put the new pair into the second half of the population
+			population[population_size / 2 + i] = new_specimen1;
+			population[population_size / 2 + i + 1] = new_specimen2;
+		}
+
+		// mutate the whole population
+		for (auto& specimen : population)
+		{
+			// TODO mutate only with a certain probability
+			std::get<0>(specimen) = mutate(std::get<0>(specimen));
+		}
+    }
+
+	solution_template.fill_start_times(std::get<0>(population[0]));
+	std::cout << "Best solution found:\n";
+	solution_template.print();
 
     return 0;
 }

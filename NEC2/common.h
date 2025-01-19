@@ -8,3 +8,7 @@ typedef std::tuple<const int /* job ID */, const int /* machine ID */, const int
 typedef std::vector<int /* task start time */> Chromosome;
 
 typedef int Fitness;
+
+typedef std::tuple<Chromosome, Fitness, int /* generation */> Specimen;
+
+typedef std::vector<Specimen> Population;
