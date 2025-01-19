@@ -104,10 +104,11 @@ std::random_device rd;
 
 std::mt19937 random_engine(rd());
 
-constexpr auto MIN_MUTATION_VALUE = -2;
-constexpr auto MAX_MUTATION_VALUE = 2;
+constexpr auto problem_filename = "la40seti5.txt";
+constexpr auto crossover_type = "1-point"; // "1-point" or "2-point"
+constexpr auto is_selection_tainted = true; // whether we put the worst specimen back into the population
+constexpr auto mutation_type = "singular"; // "singular" or "uniform XOR"
 
-constexpr auto problem_filename = "numbers.txt";
 
 // set the number of chromosomes in the population
 constexpr auto population_size = 10000;
@@ -119,6 +120,8 @@ constexpr auto generations = 500;
 
 // set the probability of mutation
 constexpr auto mutation_probability = 10;
+constexpr auto MIN_MUTATION_VALUE = -2;
+constexpr auto MAX_MUTATION_VALUE = 2;
 
 /* ------------ SETTINGS END ------- */
 
@@ -134,7 +137,7 @@ static SolutionTemplate solution_template;
 * Min size of both vectors is 3.
 * We never swap the first element.
 */
-std::pair<Chromosome, Chromosome> crossover(const Chromosome& left, const Chromosome& right)
+std::pair<Chromosome, Chromosome> crossover_2point(const Chromosome& left, const Chromosome& right)
 {
     if (left.size() != right.size())
     {
@@ -159,14 +162,16 @@ std::pair<Chromosome, Chromosome> crossover(const Chromosome& left, const Chromo
         point2++;
 	}
 
-	auto left_start_position = left.begin() + point1;
-	auto left_end_position = left.begin() + point2;
-	auto right_start_position = right.begin() + point1;
 
 	Chromosome offspring1{ left };
 	Chromosome offspring2{ right };
 
-	//std::swap_ranges(left_start_position, left_end_position, right_start_position); // swap_ranges doesn't compile in VS 2022
+	// swap_ranges doesn't compile in VS 2022
+	//auto left_start_position = left.begin() + point1;
+	//auto left_end_position = left.begin() + point2;
+	//auto right_start_position = right.begin() + point1;
+	//std::swap_ranges(left_start_position, left_end_position, right_start_position); 
+	// so we use a loop with standard swap instead
 	for (auto i = 0; i < point2 - point1; ++i)
 	{
 		std::swap(offspring1[point1 + i], offspring2[point1 + i]);
@@ -183,6 +188,43 @@ std::pair<Chromosome, Chromosome> crossover(const Chromosome& left, const Chromo
     return std::make_pair(offspring1, offspring2);
 }
 
+/*
+* 1-point crossover between two vectors.
+* Min size of both vectors is 3.
+*/
+std::pair<Chromosome, Chromosome> crossover_1point(const Chromosome& left, const Chromosome& right)
+{
+	if (left.size() != right.size())
+	{
+		throw std::runtime_error("Chromosomes must be of the same length.");
+	}
+	if (left.size() < 3)
+	{
+		throw std::runtime_error("Chromosomes must have at least 3 elements.");
+	}
+
+	// sneaky sneaky static + globals
+	static std::uniform_int_distribution<> dist(1, left.size() - 2);
+	int crossover_point = dist(random_engine);
+
+	Chromosome offspring1{ left };
+	Chromosome offspring2{ right };
+
+	for (auto i = 0; i < crossover_point; ++i)
+	{
+		std::swap(offspring1[i], offspring2[i]);
+	}
+
+	solution_template.fill_start_times(offspring1);
+	solution_template.resolve_conflicts();
+	offspring1 = solution_template.get_chromosome();
+
+	solution_template.fill_start_times(offspring2);
+	solution_template.resolve_conflicts();
+	offspring2 = solution_template.get_chromosome();
+
+	return std::make_pair(offspring1, offspring2);
+}
 /**
 * Returns the NEW chromosome with one of the start times mutated.
 * There's randomness both in the position of the mutation and the value of the mutation.
@@ -302,7 +344,20 @@ Specimen solve_using_genetic_algorithm()
 			const auto& parent2 = std::get<0>(population[i + 1]);
 
 			// crossover the chosen chromosomes obtaining the new pair
-			auto [offspring1, offspring2] = crossover(parent1, parent2);
+			Chromosome offspring1;
+			Chromosome offspring2;
+			if (crossover_type == "1-point")
+			{
+				std::tie(offspring1, offspring2) = crossover_1point(parent1, parent2);
+			}
+			else if (crossover_type == "2-point")
+			{
+				std::tie(offspring1, offspring2) = crossover_2point(parent1, parent2);
+			}
+			else
+			{
+				throw std::runtime_error("Unknown crossover type.");
+			}
 
 			// construct two new specimens with the new pair and the generation number
 			Specimen new_specimen1{ offspring1, 0, generation + 1 };
@@ -352,7 +407,7 @@ void single_test()
 	solution_template.fill_start_times(right);
 	std::cout << "Right chromosome:\n";
 	solution_template.visualize();
-	auto [offspring1, offspring2] = crossover(left, right);
+	auto [offspring1, offspring2] = crossover_2point(left, right);
 
 	std::cout << "Offspring 1:\n";
 	solution_template.fill_start_times(offspring1);

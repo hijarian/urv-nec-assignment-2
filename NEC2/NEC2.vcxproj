@@ -133,6 +133,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ft06.txt" />
+    <Text Include="la16.txt" />
+    <Text Include="la40seti5.txt" />
     <Text Include="numbers.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -22,6 +22,8 @@
   <ItemGroup>
     <Text Include="numbers.txt" />
     <Text Include="ft06.txt" />
+    <Text Include="la16.txt" />
+    <Text Include="la40seti5.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SolutionTemplate.h">
