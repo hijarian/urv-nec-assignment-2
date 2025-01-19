@@ -104,9 +104,9 @@ std::random_device rd;
 
 std::mt19937 random_engine(rd());
 
-constexpr auto problem_filename = "ft06.txt";
-constexpr auto crossover_type = "1-point"; // "1-point" or "2-point"
-constexpr auto is_selection_tainted = false; // whether we put the worst specimen back into the population
+constexpr auto problem_filename = "la40seti5.txt";
+constexpr auto crossover_type = "2-point"; // "1-point" or "2-point"
+constexpr auto is_selection_tainted = true; // whether we put the worst specimen back into the population
 constexpr auto mutation_type = "uniform XOR"; // "singular" or "uniform XOR"
 
 

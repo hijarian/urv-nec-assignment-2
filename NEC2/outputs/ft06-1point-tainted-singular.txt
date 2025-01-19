@@ -1,0 +1,72 @@
+Horizon by us: 197 Horizon by template: 197
+Absolute lowest_bound: 43
+generation 0    best fitnesses: 0.77, 0.73, 0.73        worst fitnesses: 0.04, 0.00
+generation 50   best fitnesses: 0.77, 0.77, 0.77        worst fitnesses: 0.00, 0.00
+generation 100  best fitnesses: 0.77, 0.77, 0.77        worst fitnesses: 0.00, 0.00
+generation 150  best fitnesses: 0.77, 0.77, 0.77        worst fitnesses: 0.00, 0.00
+generation 200  best fitnesses: 0.77, 0.77, 0.77        worst fitnesses: 0.00, 0.00
+generation 250  best fitnesses: 0.77, 0.77, 0.77        worst fitnesses: 0.00, 0.00
+generation 300  best fitnesses: 0.77, 0.77, 0.77        worst fitnesses: 0.00, 0.00
+generation 350  best fitnesses: 0.77, 0.77, 0.77        worst fitnesses: 0.00, 0.00
+generation 400  best fitnesses: 0.77, 0.77, 0.77        worst fitnesses: 0.00, 0.00
+generation 450  best fitnesses: 0.77, 0.77, 0.77        worst fitnesses: 0.00, 0.00
+Last generation reached.
+Best solution found:
+0        Job: 0, Machine: 2, Sequence: 0, Length: 1, Start time: 13
+1        Job: 0, Machine: 0, Sequence: 1, Length: 3, Start time: 20
+2        Job: 0, Machine: 1, Sequence: 2, Length: 6, Start time: 34
+3        Job: 0, Machine: 3, Sequence: 3, Length: 7, Start time: 40
+4        Job: 0, Machine: 5, Sequence: 4, Length: 3, Start time: 62
+5        Job: 0, Machine: 4, Sequence: 5, Length: 6, Start time: 73
+6        Job: 1, Machine: 1, Sequence: 0, Length: 8, Start time: 7
+7        Job: 1, Machine: 2, Sequence: 1, Length: 5, Start time: 34
+8        Job: 1, Machine: 4, Sequence: 2, Length: 10, Start time: 40
+9        Job: 1, Machine: 5, Sequence: 3, Length: 10, Start time: 52
+10       Job: 1, Machine: 0, Sequence: 4, Length: 10, Start time: 66
+11       Job: 1, Machine: 3, Sequence: 5, Length: 4, Start time: 77
+12       Job: 2, Machine: 2, Sequence: 0, Length: 5, Start time: 6
+13       Job: 2, Machine: 3, Sequence: 1, Length: 4, Start time: 11
+14       Job: 2, Machine: 5, Sequence: 2, Length: 8, Start time: 19
+15       Job: 2, Machine: 0, Sequence: 3, Length: 9, Start time: 31
+16       Job: 2, Machine: 1, Sequence: 4, Length: 1, Start time: 47
+17       Job: 2, Machine: 4, Sequence: 5, Length: 7, Start time: 54
+18       Job: 3, Machine: 1, Sequence: 0, Length: 5, Start time: 1
+19       Job: 3, Machine: 0, Sequence: 1, Length: 5, Start time: 6
+20       Job: 3, Machine: 2, Sequence: 2, Length: 5, Start time: 14
+21       Job: 3, Machine: 3, Sequence: 3, Length: 3, Start time: 27
+22       Job: 3, Machine: 4, Sequence: 4, Length: 8, Start time: 30
+23       Job: 3, Machine: 5, Sequence: 5, Length: 9, Start time: 66
+24       Job: 4, Machine: 2, Sequence: 0, Length: 9, Start time: 19
+25       Job: 4, Machine: 1, Sequence: 1, Length: 3, Start time: 44
+26       Job: 4, Machine: 4, Sequence: 2, Length: 5, Start time: 61
+27       Job: 4, Machine: 5, Sequence: 3, Length: 4, Start time: 75
+28       Job: 4, Machine: 0, Sequence: 4, Length: 3, Start time: 79
+29       Job: 4, Machine: 3, Sequence: 5, Length: 1, Start time: 83
+30       Job: 5, Machine: 1, Sequence: 0, Length: 3, Start time: 20
+31       Job: 5, Machine: 3, Sequence: 1, Length: 3, Start time: 23
+32       Job: 5, Machine: 5, Sequence: 2, Length: 9, Start time: 31
+33       Job: 5, Machine: 0, Sequence: 3, Length: 10, Start time: 44
+34       Job: 5, Machine: 4, Sequence: 4, Length: 4, Start time: 69
+35       Job: 5, Machine: 2, Sequence: 5, Length: 1, Start time: 75
+Machine: 0: 19 1 15 33 10 28
+Machine: 1: 18 6 30 2 25 16
+Machine: 2: 12 0 20 24 7 35
+Machine: 3: 13 31 21 3 11 29
+Machine: 4: 22 8 17 26 34 5
+Machine: 5: 14 32 9 4 23 27
+Job: 0: 0 1 2 3 4 5
+Job: 1: 6 7 8 9 10 11
+Job: 2: 12 13 14 15 16 17
+Job: 3: 18 19 20 21 22 23
+Job: 4: 24 25 26 27 28 29
+Job: 5: 30 31 32 33 34 35
+Machine 0: (j3s1 6+5) (j0s1 20+3) (j2s3 31+9) (j5s3 44+10) (j1s4 66+10) (j4s4 79+3)
+Machine 1: (j3s0 1+5) (j1s0 7+8) (j5s0 20+3) (j0s2 34+6) (j4s1 44+3) (j2s4 47+1)
+Machine 2: (j2s0 6+5) (j0s0 13+1) (j3s2 14+5) (j4s0 19+9) (j1s1 34+5) (j5s5 75+1)
+Machine 3: (j2s1 11+4) (j5s1 23+3) (j3s3 27+3) (j0s3 40+7) (j1s5 77+4) (j4s5 83+1)
+Machine 4: (j3s4 30+8) (j1s2 40+10) (j2s5 54+7) (j4s2 61+5) (j5s4 69+4) (j0s5 73+6)
+Machine 5: (j2s2 19+8) (j5s2 31+9) (j1s3 52+10) (j0s4 62+3) (j3s5 66+9) (j4s3 75+4)
+
+Total runtime: 84
+Fitness: 0.77
+Generation: 10

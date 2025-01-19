@@ -1,0 +1,288 @@
+Horizon by us: 11472 Horizon by template: 11472
+Absolute lowest_bound: 1027
+generation 0    best fitnesses: 0.71, 0.71, 0.71        worst fitnesses: 0.40, 0.39
+generation 50   best fitnesses: 0.73, 0.73, 0.73        worst fitnesses: 0.68, 0.66
+generation 100  best fitnesses: 0.73, 0.73, 0.73        worst fitnesses: 0.73, 0.73
+generation 150  best fitnesses: 0.73, 0.73, 0.73        worst fitnesses: 0.73, 0.73
+generation 200  best fitnesses: 0.73, 0.73, 0.73        worst fitnesses: 0.73, 0.73
+generation 250  best fitnesses: 0.73, 0.73, 0.73        worst fitnesses: 0.73, 0.73
+generation 300  best fitnesses: 0.73, 0.73, 0.73        worst fitnesses: 0.73, 0.73
+generation 350  best fitnesses: 0.73, 0.73, 0.73        worst fitnesses: 0.73, 0.73
+generation 400  best fitnesses: 0.73, 0.73, 0.73        worst fitnesses: 0.73, 0.73
+generation 450  best fitnesses: 0.73, 0.73, 0.73        worst fitnesses: 0.73, 0.73
+Last generation reached.
+Best solution found:
+0        Job: 0, Machine: 9, Sequence: 0, Length: 65, Start time: 332
+1        Job: 0, Machine: 10, Sequence: 1, Length: 28, Start time: 1037
+2        Job: 0, Machine: 4, Sequence: 2, Length: 74, Start time: 1065
+3        Job: 0, Machine: 12, Sequence: 3, Length: 33, Start time: 1184
+4        Job: 0, Machine: 2, Sequence: 4, Length: 51, Start time: 1391
+5        Job: 0, Machine: 14, Sequence: 5, Length: 75, Start time: 1560
+6        Job: 0, Machine: 5, Sequence: 6, Length: 73, Start time: 1646
+7        Job: 0, Machine: 8, Sequence: 7, Length: 32, Start time: 1775
+8        Job: 0, Machine: 6, Sequence: 8, Length: 13, Start time: 2113
+9        Job: 0, Machine: 3, Sequence: 9, Length: 81, Start time: 2132
+10       Job: 0, Machine: 1, Sequence: 10, Length: 35, Start time: 2859
+11       Job: 0, Machine: 7, Sequence: 11, Length: 59, Start time: 2894
+12       Job: 0, Machine: 13, Sequence: 12, Length: 38, Start time: 3070
+13       Job: 0, Machine: 11, Sequence: 13, Length: 55, Start time: 3651
+14       Job: 0, Machine: 0, Sequence: 14, Length: 27, Start time: 3763
+15       Job: 1, Machine: 0, Sequence: 0, Length: 64, Start time: 504
+16       Job: 1, Machine: 1, Sequence: 1, Length: 53, Start time: 568
+17       Job: 1, Machine: 11, Sequence: 2, Length: 83, Start time: 623
+18       Job: 1, Machine: 2, Sequence: 3, Length: 33, Start time: 788
+19       Job: 1, Machine: 4, Sequence: 4, Length: 6, Start time: 823
+20       Job: 1, Machine: 9, Sequence: 5, Length: 52, Start time: 829
+21       Job: 1, Machine: 14, Sequence: 6, Length: 72, Start time: 1385
+22       Job: 1, Machine: 8, Sequence: 7, Length: 7, Start time: 1460
+23       Job: 1, Machine: 13, Sequence: 8, Length: 90, Start time: 1836
+24       Job: 1, Machine: 12, Sequence: 9, Length: 21, Start time: 1950
+25       Job: 1, Machine: 6, Sequence: 10, Length: 23, Start time: 2076
+26       Job: 1, Machine: 3, Sequence: 11, Length: 10, Start time: 2101
+27       Job: 1, Machine: 10, Sequence: 12, Length: 39, Start time: 2987
+28       Job: 1, Machine: 5, Sequence: 13, Length: 49, Start time: 3030
+29       Job: 1, Machine: 7, Sequence: 14, Length: 72, Start time: 3252
+30       Job: 2, Machine: 14, Sequence: 0, Length: 73, Start time: 392
+31       Job: 2, Machine: 3, Sequence: 1, Length: 82, Start time: 467
+32       Job: 2, Machine: 1, Sequence: 2, Length: 23, Start time: 1099
+33       Job: 2, Machine: 12, Sequence: 3, Length: 62, Start time: 1122
+34       Job: 2, Machine: 6, Sequence: 4, Length: 88, Start time: 1184
+35       Job: 2, Machine: 5, Sequence: 5, Length: 21, Start time: 1272
+36       Job: 2, Machine: 8, Sequence: 6, Length: 65, Start time: 1295
+37       Job: 2, Machine: 11, Sequence: 7, Length: 70, Start time: 1759
+38       Job: 2, Machine: 7, Sequence: 8, Length: 53, Start time: 1833
+39       Job: 2, Machine: 10, Sequence: 9, Length: 81, Start time: 1915
+40       Job: 2, Machine: 2, Sequence: 10, Length: 93, Start time: 1996
+41       Job: 2, Machine: 13, Sequence: 11, Length: 77, Start time: 2279
+42       Job: 2, Machine: 0, Sequence: 12, Length: 61, Start time: 2356
+43       Job: 2, Machine: 9, Sequence: 13, Length: 28, Start time: 2509
+44       Job: 2, Machine: 4, Sequence: 14, Length: 78, Start time: 2624
+45       Job: 3, Machine: 1, Sequence: 0, Length: 12, Start time: 185
+46       Job: 3, Machine: 6, Sequence: 1, Length: 51, Start time: 1027
+47       Job: 3, Machine: 7, Sequence: 2, Length: 33, Start time: 1080
+48       Job: 3, Machine: 4, Sequence: 3, Length: 15, Start time: 1693
+49       Job: 3, Machine: 14, Sequence: 4, Length: 72, Start time: 1708
+50       Job: 3, Machine: 10, Sequence: 5, Length: 98, Start time: 2396
+51       Job: 3, Machine: 9, Sequence: 6, Length: 94, Start time: 2551
+52       Job: 3, Machine: 5, Sequence: 7, Length: 12, Start time: 2647
+53       Job: 3, Machine: 11, Sequence: 8, Length: 42, Start time: 2854
+54       Job: 3, Machine: 2, Sequence: 9, Length: 24, Start time: 2896
+55       Job: 3, Machine: 13, Sequence: 10, Length: 15, Start time: 3055
+56       Job: 3, Machine: 8, Sequence: 11, Length: 28, Start time: 3137
+57       Job: 3, Machine: 3, Sequence: 12, Length: 6, Start time: 3167
+58       Job: 3, Machine: 12, Sequence: 13, Length: 99, Start time: 3291
+59       Job: 3, Machine: 0, Sequence: 14, Length: 41, Start time: 3509
+60       Job: 4, Machine: 12, Sequence: 0, Length: 97, Start time: 852
+61       Job: 4, Machine: 5, Sequence: 1, Length: 7, Start time: 951
+62       Job: 4, Machine: 9, Sequence: 2, Length: 96, Start time: 958
+63       Job: 4, Machine: 4, Sequence: 3, Length: 15, Start time: 1141
+64       Job: 4, Machine: 14, Sequence: 4, Length: 73, Start time: 1156
+65       Job: 4, Machine: 13, Sequence: 5, Length: 43, Start time: 1396
+66       Job: 4, Machine: 0, Sequence: 6, Length: 32, Start time: 2065
+67       Job: 4, Machine: 8, Sequence: 7, Length: 22, Start time: 2218
+68       Job: 4, Machine: 11, Sequence: 8, Length: 42, Start time: 2362
+69       Job: 4, Machine: 1, Sequence: 9, Length: 94, Start time: 2404
+70       Job: 4, Machine: 2, Sequence: 10, Length: 23, Start time: 2498
+71       Job: 4, Machine: 7, Sequence: 11, Length: 86, Start time: 2778
+72       Job: 4, Machine: 6, Sequence: 12, Length: 78, Start time: 2992
+73       Job: 4, Machine: 10, Sequence: 13, Length: 24, Start time: 3811
+74       Job: 4, Machine: 3, Sequence: 14, Length: 31, Start time: 3838
+75       Job: 5, Machine: 1, Sequence: 0, Length: 72, Start time: 197
+76       Job: 5, Machine: 5, Sequence: 1, Length: 88, Start time: 269
+77       Job: 5, Machine: 2, Sequence: 2, Length: 93, Start time: 692
+78       Job: 5, Machine: 13, Sequence: 3, Length: 13, Start time: 976
+79       Job: 5, Machine: 4, Sequence: 4, Length: 44, Start time: 1217
+80       Job: 5, Machine: 14, Sequence: 5, Length: 66, Start time: 1261
+81       Job: 5, Machine: 6, Sequence: 6, Length: 63, Start time: 1388
+82       Job: 5, Machine: 7, Sequence: 7, Length: 14, Start time: 1453
+83       Job: 5, Machine: 9, Sequence: 8, Length: 67, Start time: 1932
+84       Job: 5, Machine: 10, Sequence: 9, Length: 17, Start time: 2002
+85       Job: 5, Machine: 11, Sequence: 10, Length: 85, Start time: 2021
+86       Job: 5, Machine: 0, Sequence: 11, Length: 35, Start time: 2312
+87       Job: 5, Machine: 3, Sequence: 12, Length: 68, Start time: 2422
+88       Job: 5, Machine: 12, Sequence: 13, Length: 5, Start time: 2496
+89       Job: 5, Machine: 8, Sequence: 14, Length: 49, Start time: 3256
+90       Job: 6, Machine: 9, Sequence: 0, Length: 15, Start time: 203
+91       Job: 6, Machine: 7, Sequence: 1, Length: 82, Start time: 335
+92       Job: 6, Machine: 6, Sequence: 2, Length: 21, Start time: 422
+93       Job: 6, Machine: 14, Sequence: 3, Length: 53, Start time: 511
+94       Job: 6, Machine: 3, Sequence: 4, Length: 72, Start time: 770
+95       Job: 6, Machine: 13, Sequence: 5, Length: 49, Start time: 842
+96       Job: 6, Machine: 2, Sequence: 6, Length: 99, Start time: 1065
+97       Job: 6, Machine: 4, Sequence: 7, Length: 26, Start time: 1261
+98       Job: 6, Machine: 12, Sequence: 8, Length: 56, Start time: 2136
+99       Job: 6, Machine: 8, Sequence: 9, Length: 45, Start time: 2256
+100      Job: 6, Machine: 1, Sequence: 10, Length: 68, Start time: 2683
+101      Job: 6, Machine: 10, Sequence: 11, Length: 51, Start time: 2883
+102      Job: 6, Machine: 0, Sequence: 12, Length: 8, Start time: 2934
+103      Job: 6, Machine: 5, Sequence: 13, Length: 27, Start time: 3283
+104      Job: 6, Machine: 11, Sequence: 14, Length: 96, Start time: 3555
+105      Job: 7, Machine: 3, Sequence: 0, Length: 54, Start time: 303
+106      Job: 7, Machine: 7, Sequence: 1, Length: 24, Start time: 583
+107      Job: 7, Machine: 4, Sequence: 2, Length: 14, Start time: 607
+108      Job: 7, Machine: 8, Sequence: 3, Length: 38, Start time: 1136
+109      Job: 7, Machine: 5, Sequence: 4, Length: 36, Start time: 1174
+110      Job: 7, Machine: 2, Sequence: 5, Length: 52, Start time: 1210
+111      Job: 7, Machine: 14, Sequence: 6, Length: 55, Start time: 1328
+112      Job: 7, Machine: 12, Sequence: 7, Length: 37, Start time: 1392
+113      Job: 7, Machine: 11, Sequence: 8, Length: 48, Start time: 1431
+114      Job: 7, Machine: 0, Sequence: 9, Length: 93, Start time: 1560
+115      Job: 7, Machine: 13, Sequence: 10, Length: 60, Start time: 2554
+116      Job: 7, Machine: 10, Sequence: 11, Length: 70, Start time: 2680
+117      Job: 7, Machine: 1, Sequence: 12, Length: 23, Start time: 2753
+118      Job: 7, Machine: 6, Sequence: 13, Length: 23, Start time: 2913
+119      Job: 7, Machine: 9, Sequence: 14, Length: 83, Start time: 3032
+120      Job: 8, Machine: 3, Sequence: 0, Length: 12, Start time: 65
+121      Job: 8, Machine: 8, Sequence: 1, Length: 69, Start time: 291
+122      Job: 8, Machine: 6, Sequence: 2, Length: 26, Start time: 360
+123      Job: 8, Machine: 9, Sequence: 3, Length: 23, Start time: 468
+124      Job: 8, Machine: 14, Sequence: 4, Length: 28, Start time: 625
+125      Job: 8, Machine: 1, Sequence: 5, Length: 82, Start time: 653
+126      Job: 8, Machine: 5, Sequence: 6, Length: 33, Start time: 735
+127      Job: 8, Machine: 4, Sequence: 7, Length: 45, Start time: 1500
+128      Job: 8, Machine: 13, Sequence: 8, Length: 64, Start time: 1547
+129      Job: 8, Machine: 7, Sequence: 9, Length: 15, Start time: 1944
+130      Job: 8, Machine: 11, Sequence: 10, Length: 9, Start time: 1996
+131      Job: 8, Machine: 12, Sequence: 11, Length: 73, Start time: 2019
+132      Job: 8, Machine: 10, Sequence: 12, Length: 59, Start time: 2511
+133      Job: 8, Machine: 2, Sequence: 13, Length: 37, Start time: 2570
+134      Job: 8, Machine: 0, Sequence: 14, Length: 62, Start time: 2623
+135      Job: 9, Machine: 0, Sequence: 0, Length: 87, Start time: 310
+136      Job: 9, Machine: 5, Sequence: 1, Length: 12, Start time: 399
+137      Job: 9, Machine: 7, Sequence: 2, Length: 80, Start time: 607
+138      Job: 9, Machine: 4, Sequence: 3, Length: 50, Start time: 733
+139      Job: 9, Machine: 10, Sequence: 4, Length: 48, Start time: 1206
+140      Job: 9, Machine: 12, Sequence: 5, Length: 90, Start time: 1270
+141      Job: 9, Machine: 1, Sequence: 6, Length: 72, Start time: 1360
+142      Job: 9, Machine: 13, Sequence: 7, Length: 24, Start time: 1929
+143      Job: 9, Machine: 6, Sequence: 8, Length: 14, Start time: 2129
+144      Job: 9, Machine: 8, Sequence: 9, Length: 71, Start time: 2143
+145      Job: 9, Machine: 11, Sequence: 10, Length: 44, Start time: 2900
+146      Job: 9, Machine: 9, Sequence: 11, Length: 46, Start time: 2986
+147      Job: 9, Machine: 2, Sequence: 12, Length: 15, Start time: 3032
+148      Job: 9, Machine: 14, Sequence: 13, Length: 61, Start time: 3213
+149      Job: 9, Machine: 3, Sequence: 14, Length: 92, Start time: 3632
+150      Job: 10, Machine: 2, Sequence: 0, Length: 54, Start time: 500
+151      Job: 10, Machine: 0, Sequence: 1, Length: 22, Start time: 568
+152      Job: 10, Machine: 6, Sequence: 2, Length: 61, Start time: 764
+153      Job: 10, Machine: 4, Sequence: 3, Length: 46, Start time: 829
+154      Job: 10, Machine: 3, Sequence: 4, Length: 73, Start time: 875
+155      Job: 10, Machine: 5, Sequence: 5, Length: 16, Start time: 1491
+156      Job: 10, Machine: 12, Sequence: 6, Length: 6, Start time: 1569
+157      Job: 10, Machine: 9, Sequence: 7, Length: 94, Start time: 1617
+158      Job: 10, Machine: 14, Sequence: 8, Length: 93, Start time: 2334
+159      Job: 10, Machine: 13, Sequence: 9, Length: 67, Start time: 2470
+160      Job: 10, Machine: 8, Sequence: 10, Length: 54, Start time: 2604
+161      Job: 10, Machine: 7, Sequence: 11, Length: 75, Start time: 3153
+162      Job: 10, Machine: 11, Sequence: 12, Length: 32, Start time: 3376
+163      Job: 10, Machine: 10, Sequence: 13, Length: 40, Start time: 3408
+164      Job: 10, Machine: 1, Sequence: 14, Length: 97, Start time: 3690
+165      Job: 11, Machine: 10, Sequence: 0, Length: 92, Start time: 309
+166      Job: 11, Machine: 14, Sequence: 1, Length: 36, Start time: 467
+167      Job: 11, Machine: 4, Sequence: 2, Length: 22, Start time: 503
+168      Job: 11, Machine: 9, Sequence: 3, Length: 9, Start time: 1176
+169      Job: 11, Machine: 3, Sequence: 4, Length: 47, Start time: 1187
+170      Job: 11, Machine: 1, Sequence: 5, Length: 77, Start time: 1613
+171      Job: 11, Machine: 12, Sequence: 6, Length: 79, Start time: 1718
+172      Job: 11, Machine: 13, Sequence: 7, Length: 36, Start time: 1799
+173      Job: 11, Machine: 6, Sequence: 8, Length: 30, Start time: 1899
+174      Job: 11, Machine: 8, Sequence: 9, Length: 98, Start time: 2380
+175      Job: 11, Machine: 11, Sequence: 10, Length: 79, Start time: 2512
+176      Job: 11, Machine: 7, Sequence: 11, Length: 7, Start time: 2593
+177      Job: 11, Machine: 5, Sequence: 12, Length: 55, Start time: 2812
+178      Job: 11, Machine: 2, Sequence: 13, Length: 6, Start time: 3685
+179      Job: 11, Machine: 0, Sequence: 14, Length: 30, Start time: 3691
+180      Job: 12, Machine: 0, Sequence: 0, Length: 49, Start time: 734
+181      Job: 12, Machine: 13, Sequence: 1, Length: 83, Start time: 893
+182      Job: 12, Machine: 3, Sequence: 2, Length: 73, Start time: 976
+183      Job: 12, Machine: 6, Sequence: 3, Length: 82, Start time: 1931
+184      Job: 12, Machine: 1, Sequence: 4, Length: 82, Start time: 2013
+185      Job: 12, Machine: 14, Sequence: 5, Length: 92, Start time: 2167
+186      Job: 12, Machine: 11, Sequence: 6, Length: 73, Start time: 2289
+187      Job: 12, Machine: 4, Sequence: 7, Length: 31, Start time: 2459
+188      Job: 12, Machine: 10, Sequence: 8, Length: 35, Start time: 3230
+189      Job: 12, Machine: 9, Sequence: 9, Length: 54, Start time: 3335
+190      Job: 12, Machine: 5, Sequence: 10, Length: 7, Start time: 3389
+191      Job: 12, Machine: 8, Sequence: 11, Length: 37, Start time: 3504
+192      Job: 12, Machine: 7, Sequence: 12, Length: 72, Start time: 3559
+193      Job: 12, Machine: 2, Sequence: 13, Length: 52, Start time: 3631
+194      Job: 12, Machine: 12, Sequence: 14, Length: 76, Start time: 3719
+195      Job: 13, Machine: 10, Sequence: 0, Length: 98, Start time: 401
+196      Job: 13, Machine: 12, Sequence: 1, Length: 34, Start time: 499
+197      Job: 13, Machine: 13, Sequence: 2, Length: 52, Start time: 1022
+198      Job: 13, Machine: 4, Sequence: 3, Length: 26, Start time: 1156
+199      Job: 13, Machine: 1, Sequence: 4, Length: 28, Start time: 1182
+200      Job: 13, Machine: 3, Sequence: 5, Length: 39, Start time: 1322
+201      Job: 13, Machine: 8, Sequence: 6, Length: 80, Start time: 1380
+202      Job: 13, Machine: 5, Sequence: 7, Length: 29, Start time: 1460
+203      Job: 13, Machine: 9, Sequence: 8, Length: 70, Start time: 1547
+204      Job: 13, Machine: 0, Sequence: 9, Length: 43, Start time: 1952
+205      Job: 13, Machine: 6, Sequence: 10, Length: 48, Start time: 2161
+206      Job: 13, Machine: 7, Sequence: 11, Length: 58, Start time: 2224
+207      Job: 13, Machine: 2, Sequence: 12, Length: 45, Start time: 2282
+208      Job: 13, Machine: 14, Sequence: 13, Length: 94, Start time: 2523
+209      Job: 13, Machine: 11, Sequence: 14, Length: 96, Start time: 3107
+210      Job: 14, Machine: 1, Sequence: 0, Length: 70, Start time: 483
+211      Job: 14, Machine: 10, Sequence: 1, Length: 17, Start time: 553
+212      Job: 14, Machine: 6, Sequence: 2, Length: 90, Start time: 647
+213      Job: 14, Machine: 12, Sequence: 3, Length: 67, Start time: 737
+214      Job: 14, Machine: 4, Sequence: 4, Length: 14, Start time: 1469
+215      Job: 14, Machine: 8, Sequence: 5, Length: 23, Start time: 1564
+216      Job: 14, Machine: 3, Sequence: 6, Length: 21, Start time: 1648
+217      Job: 14, Machine: 7, Sequence: 7, Length: 18, Start time: 1921
+218      Job: 14, Machine: 13, Sequence: 8, Length: 43, Start time: 2196
+219      Job: 14, Machine: 11, Sequence: 9, Length: 84, Start time: 2428
+220      Job: 14, Machine: 5, Sequence: 10, Length: 26, Start time: 2569
+221      Job: 14, Machine: 9, Sequence: 11, Length: 36, Start time: 2645
+222      Job: 14, Machine: 2, Sequence: 12, Length: 93, Start time: 2685
+223      Job: 14, Machine: 14, Sequence: 13, Length: 84, Start time: 3372
+224      Job: 14, Machine: 0, Sequence: 14, Length: 42, Start time: 3721
+Machine: 0: 135 15 151 180 114 204 66 86 42 134 102 59 179 224 14
+Machine: 1: 45 75 210 16 125 32 199 141 170 184 69 100 117 10 164
+Machine: 2: 150 77 18 96 110 4 40 207 70 133 222 54 147 193 178
+Machine: 3: 120 105 31 94 154 182 169 200 216 26 9 87 57 149 74
+Machine: 4: 167 107 138 19 153 2 63 198 79 97 214 127 48 187 44
+Machine: 5: 76 136 126 61 109 35 202 155 6 220 52 177 28 103 190
+Machine: 6: 122 92 212 152 46 34 81 173 183 25 8 143 205 118 72
+Machine: 7: 91 106 137 47 82 38 217 129 206 176 71 11 161 29 192
+Machine: 8: 121 108 36 201 22 215 7 144 67 99 174 160 56 89 191
+Machine: 9: 90 0 123 20 62 168 203 157 83 43 51 221 146 119 189
+Machine: 10: 165 195 211 1 139 39 84 50 132 116 101 27 188 163 73
+Machine: 11: 17 113 37 130 85 186 68 219 175 53 145 209 162 104 13
+Machine: 12: 196 213 60 33 3 140 112 156 171 24 131 98 88 58 194
+Machine: 13: 95 181 78 197 65 128 172 23 142 218 41 159 115 55 12
+Machine: 14: 30 166 93 124 64 80 111 21 5 49 185 158 208 148 223
+Job: 0: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14
+Job: 1: 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
+Job: 2: 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44
+Job: 3: 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59
+Job: 4: 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74
+Job: 5: 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89
+Job: 6: 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+Job: 7: 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119
+Job: 8: 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134
+Job: 9: 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149
+Job: 10: 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164
+Job: 11: 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179
+Job: 12: 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194
+Job: 13: 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209
+Job: 14: 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224
+Machine 0: (j9s0 310+87) (j1s0 504+64) (j10s1 568+22) (j12s0 734+49) (j7s9 1560+93) (j13s9 1952+43) (j4s6 2065+32) (j5s11 2312+35) (j2s12 2356+61) (j8s14 2623+62) (j6s12 2934+8) (j3s14 3509+41) (j11s14 3691+30) (j14s14 3721+42) (j0s14 3763+27)
+Machine 1: (j3s0 185+12) (j5s0 197+72) (j14s0 483+70) (j1s1 568+53) (j8s5 653+82) (j2s2 1099+23) (j13s4 1182+28) (j9s6 1360+72) (j11s5 1613+77) (j12s4 2013+82) (j4s9 2404+94) (j6s10 2683+68) (j7s12 2753+23) (j0s10 2859+35) (j10s14 3690+97)
+Machine 2: (j10s0 500+54) (j5s2 692+93) (j1s3 788+33) (j6s6 1065+99) (j7s5 1210+52) (j0s4 1391+51) (j2s10 1996+93) (j13s12 2282+45) (j4s10 2498+23) (j8s13 2570+37) (j14s12 2685+93) (j3s9 2896+24) (j9s12 3032+15) (j12s13 3631+52) (j11s13 3685+6)
+Machine 3: (j8s0 65+12) (j7s0 303+54) (j2s1 467+82) (j6s4 770+72) (j10s4 875+73) (j12s2 976+73) (j11s4 1187+47) (j13s5 1322+39) (j14s6 1648+21) (j1s11 2101+10) (j0s9 2132+81) (j5s12 2422+68) (j3s12 3167+6) (j9s14 3632+92) (j4s14 3838+31)
+Machine 4: (j11s2 503+22) (j7s2 607+14) (j9s3 733+50) (j1s4 823+6) (j10s3 829+46) (j0s2 1065+74) (j4s3 1141+15)((j13s3 1156+26) (j5s4 1217+44) (j6s7 1261+26) (j14s4 1469+14) (j8s7 1500+45) (j3s3 1693+15) (j12s7 2459+31) (j2s14 2624+78)
+Machine 5: (j5s1 269+88) (j9s1 399+12) (j8s6 735+33) (j4s1 951+7) (j7s4 1174+36) (j2s5 1272+21) (j13s7 1460+29) (j10s5 1491+16) (j0s6 1646+73) (j14s10 2569+26) (j3s7 2647+12) (j11s12 2812+55) (j1s13 3030+49) (j6s13 3283+27) (j12s10 3389+7)
+Machine 6: (j8s2 360+26) (j6s2 422+21) (j14s2 647+90) (j10s2 764+61) (j3s1 1027+51) (j2s4 1184+88) (j5s6 1388+63) (j11s8 1899+30) (j12s3 1931+82) (j1s10 2076+23) (j0s8 2113+13) (j9s8 2129+14) (j13s10 2161+48) (j7s13 2913+23) (j4s12 2992+78)
+Machine 7: (j6s1 335+82) (j7s1 583+24) (j9s2 607+80) (j3s2 1080+33) (j5s7 1453+14) (j2s8 1833+53) (j14s7 1921+18) (j8s9 1944+15) (j13s11 2224+58) (j11s11 2593+7) (j4s11 2778+86) (j0s11 2894+59) (j10s11 3153+75) (j1s14 3252+72) (j12s12 3559+72)
+Machine 8: (j8s1 291+69) (j7s3 1136+38) (j2s6 1295+65) (j13s6 1380+80) (j1s7 1460+7) (j14s5 1564+23) (j0s7 1775+32) (j9s9 2143+71) (j4s7 2218+22) (j6s9 2256+45) (j11s9 2380+98) (j10s10 2604+54) (j3s11 3137+28) (j5s14 3256+49) (j12s11 3504+37)
+Machine 9: (j6s0 203+15) (j0s0 332+65) (j8s3 468+23) (j1s5 829+52) (j4s2 958+96) (j11s3 1176+9) (j13s8 1547+70) (j10s7 1617+94) (j5s8 1932+67) (j2s13 2509+28) (j3s6 2551+94) (j14s11 2645+36) (j9s11 2986+46) (j7s14 3032+83) (j12s9 3335+54)
+Machine 10: (j11s0 309+92) (j13s0 401+98) (j14s1 553+17) (j0s1 1037+28) (j9s4 1206+48) (j2s9 1915+81) (j5s9 2002+17) (j3s5 2396+98) (j8s12 2511+59) (j7s11 2680+70) (j6s11 2883+51) (j1s12 2987+39) (j12s8 3230+35) (j10s13 3408+40) (j4s13 3811+24)
+Machine 11: (j1s2 623+83) (j7s8 1431+48) (j2s7 1759+70) (j8s10 1996+9) (j5s10 2021+85) (j12s6 2289+73) (j4s8 2362+42) (j14s9 2428+84) (j11s10 2512+79) (j3s8 2854+42) (j9s10 2900+44) (j13s14 3107+96) (j10s12 3376+32) (j6s14 3555+96) (j0s13 3651+55)
+Machine 12: (j13s1 499+34) (j14s3 737+67) (j4s0 852+97) (j2s3 1122+62) (j0s3 1184+33) (j9s5 1270+90) (j7s7 1392+37) (j10s6 1569+6) (j11s6 1718+79) (j1s9 1950+21) (j8s11 2019+73) (j6s8 2136+56) (j5s13 2496+5) (j3s13 3291+99) (j12s14 3719+76)
+Machine 13: (j6s5 842+49) (j12s1 893+83) (j5s3 976+13) (j13s2 1022+52) (j4s5 1396+43) (j8s8 1547+64) (j11s7 1799+36) (j1s8 1836+90) (j9s7 1929+24) (j14s8 2196+43) (j2s11 2279+77) (j10s9 2470+67) (j7s10 2554+60) (j3s10 3055+15) (j0s12 3070+38)
+Machine 14: (j2s0 392+73) (j11s1 467+36) (j6s3 511+53) (j8s4 625+28) (j4s4 1156+73) (j5s5 1261+66) (j7s6 1328+55) (j1s6 1385+72) (j0s5 1560+75) (j3s4 1708+72) (j12s5 2167+92) (j10s8 2334+93) (j13s13 2523+94) (j9s13 3213+61) (j14s13 3372+84)
+
+Total runtime: 3869
+Fitness: 0.73
+Generation: 13
