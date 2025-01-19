@@ -62,6 +62,14 @@ public:
 		{
 			std::get<4>(tasks[i]) = start_times[i];
 		}
+
+		// even if we don't run the conflict resolution algorithm, we need to sort the tasks in the machines by the start time
+		for (auto& machine : machines)
+		{
+			std::sort(machine.begin(), machine.end(), [&tasks = tasks](int a, int b) {
+				return std::get<4>(tasks[a]) < std::get<4>(tasks[b]);
+				});
+		}
 	}
 
 	/**
@@ -333,6 +341,9 @@ public:
 		return 1.0 - (total_runtime_value - absolute_lowest_bound_value) / (horizon_value - absolute_lowest_bound_value);
 	}
 
+	/*
+	 * You MUST guarantee that the elements in vector `machines` are sorted by the start time of the tasks.
+	 */
 	int total_runtime() const
 	{
 		int max_time{ 0 };
